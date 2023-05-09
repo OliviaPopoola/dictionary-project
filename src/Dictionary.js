@@ -3,9 +3,10 @@ import axios from "axios";
 import "./Dictionary.css";
 import Results from "./Results";
 
-export default function Dictionary() {
-  const [keyword, setKeyword] = useState();
+export default function Dictionary(props) {
+  const [keyword, setKeyword] = useState(props.defaultKeyword);
   const [results, setResults] = useState(null);
+  const [loaded, setLoaded] = useState(false);
 
   function handleResponse(response) {
     setResults(response.data);
@@ -16,9 +17,7 @@ export default function Dictionary() {
     // console.log(response.data.meanings[0].synonyms);
   }
 
-  function search(event) {
-    event.preventDefault();
-
+  function search() {
     let apiKey = `64f17b5a3404993ab8co5054f3c7bt29`;
     let apiUrl = `https://api.shecodes.io/dictionary/v1/define?word=${keyword}&key=${apiKey}`;
 
@@ -28,13 +27,35 @@ export default function Dictionary() {
   function handleKeywordChange(event) {
     setKeyword(event.target.value);
   }
+  function handleSubmit(event) {
+    event.preventDefault();
+    search();
+  }
+  function load() {
+    setLoaded(true);
+    search();
+  }
 
-  return (
-    <div className="Dictionary">
-      <form onSubmit={search}>
-        <input type="search" autoFocus={true} onChange={handleKeywordChange} />
-      </form>
-      <Results results={results} />
-    </div>
-  );
+  if (loaded) {
+    return (
+      <div className="Dictionary">
+        <section>
+          <form onSubmit={handleSubmit}>
+            <input
+              type="search"
+              autoFocus={true}
+              onChange={handleKeywordChange}
+            />
+          </form>{" "}
+          <div className="hint">
+            suggested words: sunrise, wine, yoga, phone...
+          </div>
+        </section>
+        <Results results={results} />
+      </div>
+    );
+  } else {
+    load();
+    return "Loading...";
+  }
 }

@@ -1,7 +1,13 @@
+body {
+  background: rgba(128, 107, 107, 0.3);
+}
+
 h1 {
   font-family: "Libre Baskerville", serif;
 }
 .App-footer {
   text-align: center;
   margin: 30px 0;
+  font-family: "Poppins";
+  font-weight: 300;
 }

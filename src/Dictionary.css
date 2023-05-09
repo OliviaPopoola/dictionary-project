@@ -1,7 +1,29 @@
 .Dictionary {
   font-family: "Libre Baskerville", serif;
 }
-form {
-  margin: auto;
-  display: block;
+h1 {
+  font-size: 65px;
+  font-weight: 300;
+  padding-top: 30px;
+}
+section {
+  background-color: rgba(242, 242, 242, 0.9);
+  padding: 30px;
+  margin: 20px;
+  border-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.15) 0px 15px 25px,
+    rgba(0, 0, 0, 0.05) 0px 5px 10px;
+}
+.Dictionary input {
+  font-family: "Poppins";
+  width: 100%;
+  padding: 6px 8px;
+  border-radius: 8px;
+  color: #333;
+  border: 1px solid #ddd;
+}
+.Dictionary .hint {
+  margin-top: 5px;
+  font-size: 11px;
+  font-family: "Poppins";
 }
