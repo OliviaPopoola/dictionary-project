@@ -1,5 +1,6 @@
 import React from "react";
 import Synonyms from "./Synonyms";
+import { Capitalise } from "./Utils";
 import "./Meaning.css";
 
 export default function Meaning(props) {
@@ -7,20 +8,19 @@ export default function Meaning(props) {
     <div className="Meaning">
       <h3>{props.meaning.partOfSpeech}</h3>
       <div>
-        <p>
-          <strong>Definition: </strong>
-          {props.meaning.definition}
-          <br />
-          <span className="example">
-            <strong>Example: </strong>
-            <em>{props.meaning.example}</em>
-          </span>
-          <br />
-          <div className="synonyms">
-            <strong>Synonyms: </strong>
-            <Synonyms synonyms={props.meaning.synonyms} />
-          </div>
-        </p>
+        <div className="definition">
+          {Capitalise(props.meaning.definition)}{" "}
+        </div>
+
+        <div className="example">
+          <em>
+            {props.meaning.example ? Capitalise(props.meaning.example) : null}
+          </em>
+        </div>
+        <div className="synonyms pt-3">
+          <strong>Synonyms: </strong>
+          <Synonyms synonyms={props.meaning.synonyms} />
+        </div>
       </div>
     </div>
   );
