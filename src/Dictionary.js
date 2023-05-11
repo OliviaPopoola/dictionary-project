@@ -57,8 +57,8 @@ export default function Dictionary(props) {
             suggested words: sunrise, wine, yoga, phone...
           </div>
         </section>
-        <Photos photos={photos} />
         <Results results={results} />
+        <Photos photos={photos} />
       </div>
     );
   } else {
