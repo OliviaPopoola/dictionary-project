@@ -2,26 +2,31 @@ import React, { useState } from "react";
 import axios from "axios";
 import "./Dictionary.css";
 import Results from "./Results";
+import Photos from "./Photos";
 
 export default function Dictionary(props) {
   const [keyword, setKeyword] = useState(props.defaultKeyword);
   const [results, setResults] = useState(null);
   const [loaded, setLoaded] = useState(false);
+  const [photos, setPhotos] = useState(null);
 
-  function handleResponse(response) {
+  function handleDictionaryResponse(response) {
     setResults(response.data);
+  }
 
-    // console.log(response.data.meanings[0].partOfSpeech);
-    // console.log(response.data.meanings[0].definition);
-    // console.log(response.data.meanings[0].example);
-    // console.log(response.data.meanings[0].synonyms);
+  function handlePhotosResponse(response) {
+    setPhotos(response.data.photos);
   }
 
   function search() {
-    let apiKey = `64f17b5a3404993ab8co5054f3c7bt29`;
-    let apiUrl = `https://api.shecodes.io/dictionary/v1/define?word=${keyword}&key=${apiKey}`;
+    const apiKey = `64f17b5a3404993ab8co5054f3c7bt29`;
+    const apiUrl = `https://api.shecodes.io/dictionary/v1/define?word=${keyword}&key=${apiKey}`;
+    axios.get(apiUrl).then(handleDictionaryResponse);
 
-    axios.get(apiUrl).then(handleResponse);
+    const photoApiKey = `64f17b5a3404993ab8co5054f3c7bt29`;
+    const photoApiUrl = `https://api.shecodes.io/images/v1/search?query=${keyword}&key=${photoApiKey}`;
+
+    axios.get(photoApiUrl).then(handlePhotosResponse);
   }
 
   function handleKeywordChange(event) {
@@ -40,6 +45,7 @@ export default function Dictionary(props) {
     return (
       <div className="Dictionary">
         <section>
+          <div className="prompt"> What word do you want to look up?</div>
           <form onSubmit={handleSubmit}>
             <input
               type="search"
@@ -51,6 +57,7 @@ export default function Dictionary(props) {
             suggested words: sunrise, wine, yoga, phone...
           </div>
         </section>
+        <Photos photos={photos} />
         <Results results={results} />
       </div>
     );

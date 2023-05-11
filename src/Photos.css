@@ -1,0 +1,6 @@
+.Photos img {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: 4px;
+  margin-bottom: 15px;
+}
